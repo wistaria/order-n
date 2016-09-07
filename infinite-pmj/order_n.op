@@ -1,0 +1,10 @@
+Order-N MC for infinite-range +/- J model
+seed               = 2493
+N                  = 16
+P_ferro            = 0.5
+temperature        = 1
+sweeps             = 65536
+thermalization     = 8192
+epsilon (for O(N)) = 0.1
+Magnetization^2 = 18.1603 +- 0.0960176
+Magnetization^4 = 933.99 +- 10.5217

@@ -1,5 +1,4 @@
-# order-n
-Order N Monte Carlo Method
+# Order-N Monte Carlo Method
 
 ## Prerequisites
 
@@ -8,5 +7,8 @@ Order N Monte Carlo Method
 
 ## How to compile
 
-cmake -DBOOST_ROOT=/somewhere .
-make
+     cd order-n
+     mkdir build && build
+     cmake -DBOOST_ROOT=/somewhere ..
+     make
+     make test

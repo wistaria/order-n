@@ -1,0 +1,10 @@
+Naive MC for infinite-range +/- J model
+seed               = 2493
+N                  = 16
+P_ferro            = 0.5
+temperature        = 1
+sweeps             = 65536
+thermalization     = 8192
+epsilon (for O(N)) = 0.1
+Magnetization^2 = 18.3644 +- 0.0967654
+Magnetization^4 = 950.89 +- 10.6771
