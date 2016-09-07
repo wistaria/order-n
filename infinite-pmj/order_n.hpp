@@ -1,11 +1,13 @@
-#ifndef ON_LOCAL_HPP
-#define ON_LOCAL_HPP
+// Copyright (C) 2016 by Synge Todo <wistaria@phys.s.u-tokyo.ac.jp>
 
 // O(N) local flip algorithm
 
-class on_local {
+#ifndef ORDER_N_HPP
+#define ORDER_N_HPP
+
+class order_n {
 public:
-  on_local(double coupling, std::vector<std::vector<int> > const& sign, double epsilon) :
+  order_n(double coupling, std::vector<std::vector<int> > const& sign, double epsilon) :
     num_sites_(sign.size()), coupling_(coupling), sign_(sign), epsilon_(epsilon) {
     if (num_sites_ <= 0) {
       std::cerr << "Error: number of sites\n"; std::exit(127);
@@ -34,6 +36,8 @@ public:
     if (epsilon_ < 0) {
       std::cerr << "Error: sign of epsilon\n"; std::exit(127);
     }
+    u_ = epsilon_ / (2 + epsilon_);
+    u_inv_ = 1.0 / u_;
   }
   template<typename UNIFORM_01>
   void update(double temperature, std::vector<int>& spins, UNIFORM_01& uniform_01) {
@@ -49,13 +53,15 @@ public:
       for (double t = exp_dist(uniform_01); t < lambda; t += exp_dist(uniform_01)) {
         int s1 = num_sites_ * uniform_01();
         if (s1 != s0) {
-          int sigma = spins[s0] * spins[s1];
-          r *= (1 + epsilon_ - sigma * sign_[s0][s1]) / (1 + epsilon_ + sigma * sign_[s0][s1]);
+          int sigma = spins[s0] * spins[s1] * sign_[s0][s1];
+          if (sigma > 0) {
+            r *= u_;
+          } else if (uniform_01() < u_) {
+            r *= u_inv_;
+          }
         }
       }
-      if (uniform_01() < r / (1 + r)) {
-        spins[s0] = -spins[s0];
-      }
+      if (uniform_01() < r) spins[s0] = -spins[s0];
     }
   }
 protected:
@@ -68,6 +74,7 @@ private:
   double coupling_;
   std::vector<std::vector<int> > sign_;
   double epsilon_;
+  double u_, u_inv_;
 };
 
-#endif // ON_LOCAL_HPP
+#endif // ORDER_N_HPP

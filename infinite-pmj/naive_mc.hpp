@@ -1,3 +1,5 @@
+// Copyright (C) 2016 by Synge Todo <wistaria@phys.s.u-tokyo.ac.jp>
+
 #ifndef NAIVE_MC_HPP
 #define NAIVE_MC_HPP
 

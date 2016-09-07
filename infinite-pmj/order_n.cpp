@@ -5,10 +5,10 @@
 #include <observable.hpp>
 #include <power.hpp>
 #include "options.hpp"
-#include "naive_mc.hpp"
+#include "order_n.hpp"
 
 int main(int argc, char** argv) {
-  std::cout << "Naive MC for infinite-range +/- J model" << std::endl;
+  std::cout << "Order-N MC for infinite-range +/- J model" << std::endl;
   options opt(argc, argv);
 
   // random number generators
@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
   std::vector<int> spins(opt.N, 1); // all up
   
   // MC updater
-  naive_mc mc(coupling, sign);
+  order_n mc(coupling, sign, opt.epsilon);
 
   // observables
   observable magnetization2("Magnetization^2");

@@ -1,4 +1,4 @@
-set(PROGS naive_mc on_local)
+set(PROGS naive_mc order_n)
 
 foreach(name ${PROGS})
   set(target_name ${name})
